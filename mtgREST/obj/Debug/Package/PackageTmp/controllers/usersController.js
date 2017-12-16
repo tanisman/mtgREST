@@ -9,12 +9,12 @@ exports.list_all_users = function (req, res) {
         } else {
             res.json(user);
         }
-    });
+    }).populate('own_locations.location_id');
 };
 
 exports.create_a_user = function (req, res) {
     var new_user = new User(req.body);
-    new_task.save(function (err, user) {
+    new_user.save(function (err, user) {
         if (err) {
             res.send(err);
         } else {
@@ -30,5 +30,15 @@ exports.read_a_user = function (req, res) {
         } else {
             res.json(user);
         }
-    })
+    }).populate('own_locations.location_id');
+};
+
+exports.login_required = function (req, res, next) {
+    if (req.session && req.session.userId && req.session.userId != 0) {
+        return next();
+    } else {
+        var err = new Error('You must be logged in to view this page.');
+        err.status = 401;
+        return next(err);
+    }
 }
