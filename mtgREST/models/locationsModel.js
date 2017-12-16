@@ -25,6 +25,30 @@ var LocationSchema = new Schema({
         required: "Description about place",
         default: "No Description"
     },
+    has_wc: {
+        type: Boolean,
+        required: "WC info",
+        default: false
+    },
+    has_wifi: {
+        type: Boolean,
+        required: "wifi info",
+        default: false
+    },
+    attraction_points: {
+        type: Number,
+        default: 0,
+    },
+    comments: [{
+        postedBy: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Users'
+        },
+        text: {
+            type: String,
+            default: ""
+        }
+    }],
     trk: [{
         lat: String,
         lng: String

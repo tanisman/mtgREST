@@ -30,7 +30,7 @@ exports.list_all_locations = function (req, res) {
         } else {
             res.json(loc);
         }
-    });
+    }).populate("comments.postedBy");
 };
 
 exports.create_a_location = function (req, res) {
@@ -62,7 +62,7 @@ exports.read_a_location = function (req, res) {
         } else {
             res.json(loc);
         }
-    })
+    }).populate("comments.postedBy");
 };
 
 exports.find_nearby = function (req, res) {
@@ -81,5 +81,5 @@ exports.find_nearby = function (req, res) {
             }
             res.json(found);
         }
-    });
+    }).populate("comments.postedBy");
 }
